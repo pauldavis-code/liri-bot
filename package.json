@@ -1,0 +1,23 @@
+{
+  "name": "liri-bot",
+  "version": "1.0.0",
+  "description": "liri",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luapasivad/liri-bot.git"
+  },
+  "author": "Paul Davis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luapasivad/liri-bot/issues"
+  },
+  "homepage": "https://github.com/luapasivad/liri-bot#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^8.0.0"
+  }
+}
