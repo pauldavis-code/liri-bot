@@ -34,7 +34,16 @@ switch(searchType) {
 	case "movie-this":
 		axios.get(`http://www.omdbapi.com/?t=${searchTerm}&y=&plot=short&apikey=trilogy`).then(
 			function(response) {
-				console.log(response.data);
+				// console.log(response.data);
+
+				console.log(`\n movie title: ${response.data.Title}`)
+				console.log(`year of release: ${response.data.Year}`)
+				console.log(`IMDB rating: ${response.data.imdbRating}`)
+				console.log(`Rotten Tomatoes rating: ${response.data.Ratings[1].Value}`)
+				console.log(`production country: ${response.data.Country}`)
+				console.log(`language: ${response.data.Language}`)
+				console.log(`plot: ${response.data.Plot}`)
+				console.log(`actors: ${response.data.Actors}\n`)
 			}
 		);
 		break
