@@ -1,8 +1,10 @@
 require("dotenv").config();
 
-var Spotify = require("node-spotify-api");
-var axios = require('axios');
+const Spotify = require("node-spotify-api");
+const axios = require('axios');
+const moment = require('moment')
 var keys = require("./keys.js");
+
 
 var spotify = new Spotify(keys.spotify);
 var searchType = process.argv[2]
@@ -23,8 +25,9 @@ switch(searchType) {
 				artistArr.push(tracks.artists[i].name)
 			}
 
-
-			console.log(`\ntrack title: ${tracks.name}`)
+		
+			console.log(`\n===== TRACK INFO =====\n`)
+			console.log(`track title: ${tracks.name}`)
 			console.log(`track artist(s): ${artistArr}`)
 			console.log(`track album: ${tracks.album.name}`)
 			console.log(`track preivew URL: ${tracks.external_urls.spotify}\n`)
@@ -40,7 +43,8 @@ switch(searchType) {
 			function(response) {
 				// console.log(response.data);
 
-				console.log(`\n movie title: ${response.data.Title}`)
+				console.log(`\n===== MOVIE INFO =====\n`)
+				console.log(`movie title: ${response.data.Title}`)
 				console.log(`year of release: ${response.data.Year}`)
 				console.log(`IMDB rating: ${response.data.imdbRating}`)
 				console.log(`Rotten Tomatoes rating: ${response.data.Ratings[1].Value}`)
@@ -54,9 +58,13 @@ switch(searchType) {
 	case "concert-this":
 		axios.get(`https://rest.bandsintown.com/artists/${searchTerm}/events?app_id=codingbootcamp`).then(
 			function(response) {
+				console.log('\n===== CONCERTS =====\n')
 				for(let i=0; i < response.data.length; i++) {
+					let date = moment(response.data[i].datetime).format('LLL') 
+					
 					console.log(`venue: ${response.data[i].venue.name}`)
 					console.log(`${response.data[i].venue.city}, ${response.data[i].venue.country}`)
+					console.log(`${date}\n`)
 				}
 			}
 		);
