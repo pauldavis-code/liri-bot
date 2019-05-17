@@ -32,6 +32,10 @@ switch(searchType) {
 		break
 	
 	case "movie-this":
+		if (searchTerm == "") {
+			searchTerm = "Mr. Nobody"
+		}
+
 		axios.get(`http://www.omdbapi.com/?t=${searchTerm}&y=&plot=short&apikey=trilogy`).then(
 			function(response) {
 				// console.log(response.data);
@@ -47,6 +51,17 @@ switch(searchType) {
 			}
 		);
 		break
+	case "concert-this":
+		axios.get(`https://rest.bandsintown.com/artists/${searchTerm}/events?app_id=codingbootcamp`).then(
+			function(response) {
+				for(let i=0; i < response.data.length; i++) {
+					console.log(`venue: ${response.data[i].venue.name}`)
+					console.log(`${response.data[i].venue.city}, ${response.data[i].venue.country}`)
+				}
+			}
+		);
+		break;
+
 }
 
 
