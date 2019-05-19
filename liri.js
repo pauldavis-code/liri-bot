@@ -9,15 +9,14 @@ var keys = require("./keys.js");
 
 var spotify = new Spotify(keys.spotify);
 var searchType = process.argv[2]
-let temp = process.argv.splice(0,3)
-var searchTerm = process.argv.join(" ")
+let searchTerm = process.argv.slice(3).join(" ")
 
 if (searchType == 'do-what-it-says') {
-	fs.readFile('random.txt', 'utf8', function(err, data) {
-		if(err){
+	fs.readFile('random.txt', 'utf8', function (err, data) {
+		if (err) {
 			console.log(`error: ${err}`)
 		} else {
-			let temp =  data.split(",")
+			let temp = data.split(",")
 			searchType = temp[0]
 			searchTerm = temp[1]
 
@@ -27,42 +26,36 @@ if (searchType == 'do-what-it-says') {
 }
 
 search(searchType)
+
 function search(type) {
-	switch(type) {
-
-		// case 'do-what-it-says':
-		// 	fs.readFile('random.txt', 'utf8', function(err, data) {
-		// 		if(err){
-		// 			console.log(`error: ${err}`)
-		// 		} else {
-		// 			let temp =  data.split(",")
-		// 			process.argv[0] = temp[0]
-		// 			searchTerm = temp[1]
-
-		// 			console.log(searchType, searchTerm)
-		// 		}
-		// 	})
+	switch (type) {
 		case "spotify-this-song":
-		if (searchTerm === "") {
-			searchTerm = "Ace of Base"
-		}
-				spotify.search({ type: 'track', query: searchTerm, limit: 1 }, function(err, response) {
-					if (err) { return console.log('Error occurred: ' + err);}
+			if (searchTerm === "") {
+				searchTerm = "Ace of Base"
+			}
+			spotify.search({
+				type: 'track',
+				query: searchTerm,
+				limit: 1
+			}, function (err, response) {
+				if (err) {
+					return console.log('Error occurred: ' + err);
+				}
 
-					let tracks = response.tracks.items[0]
-					let artistArr = []
+				let tracks = response.tracks.items[0]
+				let artistArr = []
 
-					for (let i = 0; i < tracks.artists.length; i++) {
-						artistArr.push(tracks.artists[i].name)
-					}
+				for (let i = 0; i < tracks.artists.length; i++) {
+					artistArr.push(tracks.artists[i].name)
+				}
 
-				
-					console.log(`\n===== TRACK INFO =====\n`)
-					console.log(`track title: ${tracks.name}`)
-					console.log(`track artist(s): ${artistArr}`)
-					console.log(`track album: ${tracks.album.name}`)
-					console.log(`track preivew URL: ${tracks.external_urls.spotify}\n`)
-				});
+
+				console.log(`\n===== TRACK INFO =====\n`)
+				console.log(`track title: ${tracks.name}`)
+				console.log(`track artist(s): ${artistArr}`)
+				console.log(`track album: ${tracks.album.name}`)
+				console.log(`track preivew URL: ${tracks.external_urls.spotify}\n`)
+			});
 			break
 
 		case "movie-this":
@@ -71,9 +64,8 @@ function search(type) {
 			}
 
 			axios.get(`http://www.omdbapi.com/?t=${searchTerm}&y=&plot=short&apikey=trilogy`).then(
-				function(response) {
+				function (response) {
 					// console.log(response.data);
-
 					console.log(`\n===== MOVIE INFO =====\n`)
 					console.log(`movie title: ${response.data.Title}`)
 					console.log(`year of release: ${response.data.Year}`)
@@ -88,20 +80,17 @@ function search(type) {
 			break
 		case "concert-this":
 			axios.get(`https://rest.bandsintown.com/artists/${searchTerm}/events?app_id=codingbootcamp`).then(
-				function(response) {
+				function (response) {
 					console.log('\n===== CONCERTS =====\n')
-					for(let i=0; i < response.data.length; i++) {
-						let date = moment(response.data[i].datetime).format('LLL') 
-						
+					for (let i = 0; i < response.data.length; i++) {
+						let date = moment(response.data[i].datetime).format('LLL')
+
 						console.log(`venue: ${response.data[i].venue.name}`)
 						console.log(`${response.data[i].venue.city}, ${response.data[i].venue.country}`)
 						console.log(`${date}\n`)
 					}
 				}
 			);
-			break;
-
+		break;
 	}
 }
-
-
