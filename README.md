@@ -35,7 +35,7 @@ node liri.js spotify-this-song SONG NAME HERE
 
 this commmand will allow us to request information for a specific song from the Spotify API. The response will look like this -
 
-![spotify-this-song.png](spotify-this-song.png)
+![spotify-this-song.png](/pictures/spotify-this-song.png)
 
 ### movie-this
 
@@ -45,7 +45,7 @@ node liri.js movie-this MOVIE TITLE HERE
 
 this command will allow us to request information for a specific mvoie from the OMDB api. The response will look like this -
 
-![movie-info.png](movie-info.png)
+![movie-info.png](/pictures/movie-this.png)
 
 ### concert-this
 
@@ -55,7 +55,7 @@ node liri.js concert-this ARTIST/BAND HERE
 
 this command will allow us to request information for a specifc band in regards to upcoming concerts. The response will look like this -
 
-![concert-this.png](concert-this.png)
+![concert-this.png](/pictures/concert-this.png)
 
 ### do-what-it-says
 ```
